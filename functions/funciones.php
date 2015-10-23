@@ -111,7 +111,7 @@ function ultimasNotas(){
 	$query = "SELECT 	n.id as id, 
 						n.fecha_crea as fecha,	
 						n.descripcion as descripcion, 
-						u.fullname as usuario, 
+						u.username as usuario, 
 						e.valor as estado, 
 						i.valor as importancia, 
 						n.fecha_edit as modificacion
