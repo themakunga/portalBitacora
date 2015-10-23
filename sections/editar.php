@@ -5,17 +5,7 @@ $fecha = date("Y-m-d H:i:s");
 echo $fecha;
 $dia = entradaTurno($fecha,"1");
 $tarde = entradaTurno($fecha,"2");
-//$fecha = date("d-m-Y H:i:s", "29-07-2015 04:00:00");
-if ($fecha <= strtotime(date("Y-m-d H:i:s", "00:00:00")) and $fecha >= strtotime(date("d-m-Y h:i:s", "07:00:00")) ){
-	$fecha = date("d-m-Y",strtotime ( '-1 day' , strtotime ( $fecha ) ) );
-}else{
-	$fecha = $fecha;
-}
 $noche = entradaTurno($fecha,"3");
-
-
-
-
 ?>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <div id="exportar">

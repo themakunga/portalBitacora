@@ -2,7 +2,7 @@
 $ultimas = entradasEjecucion();
 
 ?>
-
+<div class="col-lg-6">
 <h3>Entradas Activas</h3>
 <table>
 	<thead>
@@ -30,3 +30,4 @@ $ultimas = entradasEjecucion();
 		?>
 	</tbody>
 </table>
+</div>
