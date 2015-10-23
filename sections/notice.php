@@ -7,8 +7,9 @@
 
 		<thead>
 			<tr>
-				<td class="col-xs-2"> Fecha </td>
-				<td class="col-xs-9"> Contenido Nota </td>
+				<td class="col-xs-1"> Fecha </td>
+				<td class="col-xs-1"> Estatus </td>
+				<td class="col-xs-8"> Contenido Nota </td>
 				<td class="col-xs-1"> Ticket</td>
 			</tr>
 		</thead>
@@ -19,33 +20,37 @@
 		while($lista = mysql_fetch_array($res)){
 			$array = $lista['id'];
 			if($lista['importancia'] == 1){
-				echo 	'<tr class="warning"><td class="col-xs-2">
+				echo 	'<tr class="warning"><td class="col-xs-1">
 							<a href=javascript:newPopup("sections/popup-notice.php?edit='.$array.'");>'.convertir_fecha($lista['fecha_crea'],1).'</a>
 						</td>
-						<td class="col-xs-9">'.iconosNotas($lista['id']).$lista['descripcion'].'</td>
+						<td class="col-xs-1">'.iconosNotas($lista['id']).'</td>
+						<td class="col-xs-8">'.$lista['descripcion'].'</td>
 						<td class="col-xs-1"> <input type="checkbox" name="nota[]" value="'.$lista['id'].'"></td>
 							<input type ="text" name="id[]" value="'.$lista['id'].'" style="visibility: hidden"></tr>';
 			}else{
 				if($lista['importancia'] == 2){
-					echo 	'<h4><tr class="danger"><td class="col-xs-2">
+					echo 	'<h4><tr class="danger"><td class="col-xs-1">
 								<a href=javascript:newPopup("sections/popup-notice.php?edit='.$array.'");>'.convertir_fecha($lista['fecha_crea'],1).'</a>
 							</td>
-							<td class="col-xs-9">'.iconosNotas($lista['id']).$lista['descripcion'].'</td>
+							<td class="col-xs-1">'.iconosNotas($lista['id']).'</td>
+							<td class="col-xs-8">'.$lista['descripcion'].'</td>
 							<td class="col-xs-1"> <input type="checkbox" name="nota[]" value="'.$lista['id'].'"></td>
 							<input type ="text" name="id[]" value="'.$lista['id'].'" style="visibility: hidden"></tr>';
 				}else{
 					if($lista['importancia'] == 4){
-						echo '<tr class="active"><td class="col-xs-2">
+						echo '<tr class="active"><td class="col-xs-1">
 								<a href=javascript:newPopup("sections/popup-notice.php?edit='.$array.'");>'.convertir_fecha($lista['fecha_crea'],1).'</a>
 							</td>
-							<td class="col-xs-9"><i>'.iconosNotas($lista['id']).$lista['descripcion'].'</i></td>
+							<td class="col-xs-1">'.iconosNotas($lista['id']).'</td>
+							<td class="col-xs-8"><i>'.$lista['descripcion'].'</i></td>
 							<td class="col-xs-1"> <input type="checkbox" name="nota[]" value="'.$lista['id'].'"></td>
 							<input type ="text" name="id[]" value="'.$lista['id'].'" style="visibility: hidden"></tr>';
 						}else{
-							echo '<tr class="info"><td class="col-xs-2">
+							echo '<tr class="info"><td class="col-xs-1">
 								<a href=javascript:newPopup("sections/popup-notice.php?edit='.$array.'");>'.convertir_fecha($lista['fecha_crea'],1).'</a>
 							</td>
-							<td class="col-xs-9"><i>'.iconosNotas($lista['id']).$lista['descripcion'].'</i></td>
+							<td class="col-xs-1">'.iconosNotas($lista['id']).'</td>
+							<td class="col-xs-8"><i>'.$lista['descripcion'].'</i></td>
 							<td class="col-xs-1"> <input type="checkbox" name="nota[]" value="'.$lista['id'].'"></td>
 							<input type ="text" name="id[]" value="'.$lista['id'].'" style="visibility: hidden"></tr>';
 
