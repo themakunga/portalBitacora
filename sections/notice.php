@@ -22,7 +22,7 @@
 				echo 	'<tr class="warning"><td class="col-xs-2">
 							<a href=javascript:newPopup("sections/popup-notice.php?edit='.$array.'");>'.convertir_fecha($lista['fecha_crea'],1).'</a>
 						</td>
-						<td class="col-xs-9">'.$lista['descripcion'].'</td>
+						<td class="col-xs-9">'.iconosNotas($lista['id']).$lista['descripcion'].'</td>
 						<td class="col-xs-1"> <input type="checkbox" name="nota[]" value="'.$lista['id'].'"></td>
 							<input type ="text" name="id[]" value="'.$lista['id'].'" style="visibility: hidden"></tr>';
 			}else{
@@ -30,7 +30,7 @@
 					echo 	'<h4><tr class="danger"><td class="col-xs-2">
 								<a href=javascript:newPopup("sections/popup-notice.php?edit='.$array.'");>'.convertir_fecha($lista['fecha_crea'],1).'</a>
 							</td>
-							<td class="col-xs-9">'.$lista['descripcion'].'</td>
+							<td class="col-xs-9">'.iconosNotas($lista['id']).$lista['descripcion'].'</td>
 							<td class="col-xs-1"> <input type="checkbox" name="nota[]" value="'.$lista['id'].'"></td>
 							<input type ="text" name="id[]" value="'.$lista['id'].'" style="visibility: hidden"></tr>';
 				}else{
@@ -38,14 +38,14 @@
 						echo '<tr class="active"><td class="col-xs-2">
 								<a href=javascript:newPopup("sections/popup-notice.php?edit='.$array.'");>'.convertir_fecha($lista['fecha_crea'],1).'</a>
 							</td>
-							<td class="col-xs-9"><i>'.$lista['descripcion'].'</i></td>
+							<td class="col-xs-9"><i>'.iconosNotas($lista['id']).$lista['descripcion'].'</i></td>
 							<td class="col-xs-1"> <input type="checkbox" name="nota[]" value="'.$lista['id'].'"></td>
 							<input type ="text" name="id[]" value="'.$lista['id'].'" style="visibility: hidden"></tr>';
 						}else{
 							echo '<tr class="info"><td class="col-xs-2">
 								<a href=javascript:newPopup("sections/popup-notice.php?edit='.$array.'");>'.convertir_fecha($lista['fecha_crea'],1).'</a>
 							</td>
-							<td class="col-xs-9"><i>'.$lista['descripcion'].'</i></td>
+							<td class="col-xs-9"><i>'.iconosNotas($lista['id']).$lista['descripcion'].'</i></td>
 							<td class="col-xs-1"> <input type="checkbox" name="nota[]" value="'.$lista['id'].'"></td>
 							<input type ="text" name="id[]" value="'.$lista['id'].'" style="visibility: hidden"></tr>';
 

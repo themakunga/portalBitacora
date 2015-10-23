@@ -65,11 +65,39 @@ function list_estatus_notas(){
 }
 
 function listadoNotas(){
-	$query = 'SELECT * FROM notas WHERE estado = 1 order by stampa DESC;';
+	$query = 'SELECT * FROM notas WHERE estado <> 2 order by stampa DESC;';
 	$res = mysql_query($query);
 	
 	return $res;
 	
+}
+
+function iconosNotas($id){
+	$query = "SELECT estado FROM notas WHERE id = '".$id."';";
+	$res = mysql_query($query);
+	while($salida = mysql_fetch_array($res)){
+		if ($salida['estado'] == '1') {
+			$output = "<span class='label label-success'>Vigente</span>&nbsp; &nbsp; ";
+		}
+		else{
+			if ($salida['estado'] == '2'){
+				$output = "<span class='label label-danger'>Eliminada</span>&nbsp; &nbsp; ";
+			}
+			else{
+				if ($salida['estado'] == '3'){
+					$output = "<span class='label label-warning'>Importante</span>&nbsp; &nbsp; ";
+				}
+				else{
+					if($salida['estado'] == '4'){
+						$output = "<span class='label label-info'>En Evaluacion</span>&nbsp; &nbsp; ";
+					}
+				}
+			}
+		}	
+
+	}
+
+	return $output;
 }
 
 function obtener_notas($id){
