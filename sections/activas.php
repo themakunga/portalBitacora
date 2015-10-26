@@ -2,17 +2,17 @@
 $ultimas = entradasEjecucion();
 
 ?>
-<div class="col-lg-6">
+<div class="col-lg-12">
 <h3>Entradas Activas</h3>
 <table>
 	<thead>
 		<tr>
-			<td>#</td>
-			<td>Grupo</td>
-			<td>Titulo</td>
-			<td>Descripcion</td>
-			<td>Hora Inicio</td>
-			<td>Estatus</td>
+			<td class="col-xs-1">#</td>
+			<td class="col-xs-1">Grupo</td>
+			<td class="col-xs-2">Titulo</td>
+			<td class="col-xs-6">Descripcion</td>
+			<td class="col-xs-1">Hora Inicio</td>
+			<td class="col-xs-1">Estatus</td>
 		</tr>
 	</thead>
 	<tbody>

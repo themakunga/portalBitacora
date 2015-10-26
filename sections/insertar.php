@@ -1,6 +1,6 @@
 <?php require_once ('functions/funciones.php');?>
 <form id="inserta-entrada" class="form-horizontal" name="insertar" method="post" action="functions/f-insertar.php">
-<div class="col-lg-4 well bs-component">
+<div class="col-lg-12 well bs-component">
 	<div class="bs-component text-center">	<fieldset>
 		<legend>Ingresar Entrada</legend>
 			<div class="form-group">

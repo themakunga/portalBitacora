@@ -30,8 +30,9 @@ if(!empty($_SESSION['usuario'])){
 		<div class="tab-pane fade in active" id="insertar">
 			<p>
 				<?php 
-					include 'sections/insertar.php'; 
-					include 'sections/activas.php';
+					include 'sections/main-insert.php';
+					//include 'sections/insertar.php'; 
+					//include 'sections/activas.php';
 					include 'sections/ultimas.php';
 				?>
 			</p>
