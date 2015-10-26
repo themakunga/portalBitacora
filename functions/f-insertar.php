@@ -2,33 +2,28 @@
 session_start();
 require_once ('funciones.php');
 
-$usuario = $_SESSION['id'];
-$turno = $_SESSION['turno'];
 $fecha = date("Y-m-d");
 $inicio = $_POST['inicio'];
 $inicio = noTime($inicio);
 $fin = $_POST['fin'];
 $fin = noTime($fin);
-$titulo = $_POST['titulo'];
-$proceso =$_POST['proceso'];
-$descripcion = $_POST['desc'];
 $estado = designaEstado($inicio, $fin);
 
 $validador = array();
 /*Validaciones no vacios*/
-if(isset($titulo) and !empty($titulo)){
+if(isset($_POST['titulo']) and !empty($_POST['titulo'])){
 	$validador[] = true;
 }else{
 	$validador[] = false;
 }
 
-if($proceso != "null"){
+if($_POST['proceso'] != "null"){
 	$validador[] = true;
 }else{
 	$validador[] = false;
 }
 
-if(!empty($descripcion)){
+if(!empty($$_POST['desc'])){
 	$validador[] = true;
 }else{
 	$validador[] = false;
@@ -63,9 +58,9 @@ if($contador === '0'){
 						proceso => $proceso,
 						usuario => $usuario,
 						estatus => $estado,
-						turno => $turno,
-						titulo => $titulo,
-						descripcion => $descripcion);
+						turno => $_SESSION['turno'],
+						titulo => $_SESSION['titulo'],
+						descripcion => $_SESSION['desc']);
 	inserta_entrada($ingreso);
 	
 	header('Location: ../index.php#insertar');
@@ -82,7 +77,7 @@ if($contador === '0'){
 
 header('Location: ../index.php#insertar');
 
-//var_dump($ingreso);
+//var_dump($ingreso); 
 
 
 ?>

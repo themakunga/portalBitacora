@@ -1,5 +1,6 @@
-<h3>Avisos y Notas Importantes</h3>
-
+<div class="page-header">
+	<h2>Avisos y Notas Importantes</h2>
+</div>
 
 <form name = "notas-v" method="POST" action="functions/f-notas.php">
 	
