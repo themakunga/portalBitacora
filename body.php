@@ -12,7 +12,9 @@
 <div class="container">
 <?php
 $result = listadoNotas();
+$entra = contarActivas();
 $notasvigentes = mysql_num_rows($result);
+$entradasvigentes = mysql_num_rows($entra);
 //session_start();
 if(!empty($_SESSION['usuario'])){
 	$usuario = $_SESSION['nombre'];

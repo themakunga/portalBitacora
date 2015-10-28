@@ -1,5 +1,5 @@
 <?php require_once ('functions/funciones.php');?>
-<form id="inserta-entrada" class="form-horizontal" name="insertar" method="post" action="functions/f-insertar.php">
+<form id="inserta-entrada" class="form-horizontal" name="insertar" method="post" action="functions/ingresa.php">
 <div class="col-lg-12 well bs-component">
 	<div class="bs-component text-center">	<fieldset>
 		<legend>Ingresar Entrada</legend>
@@ -44,8 +44,8 @@
 			<input type="hidden" name="turno" value="<?php $tu;?>">
 		
 			<div class="btn-group">
-				<input class="btn btn-primary" type="submit" name="acept" value=" Insertar ">
-				<input class="btn btn-info" type="submit" name="pend" value=" Dejar Pendiente ">
+				<input class="btn btn-primary" type="submit" name="ingresar" value=" Insertar ">
+				<input class="btn btn-info" type="submit" name="pendiente" value=" Dejar Pendiente ">
 				<input class="btn btn-default" type="reset" name="clear" value=" Limpiar ">
 			</div>
 		</fieldset>

@@ -13,7 +13,7 @@
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-2">
       <ul class="nav navbar-nav" id="myTab">
         <li><a href="#notas" data-toggle="tab" >Notas <span class="badge"><?php echo "$notasvigentes"; ?></span></a></li>
-        <li class="active"><a href="#insertar" data-toggle="tab">Insertar</a></li>
+        <li class="active"><a href="#insertar" data-toggle="tab">Insertar <span class="badge"><?php echo "$entradasvigentes"; ?></a></li>
         <li><a href="#editar" data-toggle="tab">Editar</a></li>
         <li class="disabled"><a href="#exportar" data-toggle="tab">Exportar</a></li>
         <li class="disabled"><a href="#checklist" data-toggle="tab">Checklist</a></li>

@@ -172,13 +172,20 @@ function entradasEjecucion(){
 				AND     l.estatus = e.id
 				AND     l.usuario = u.id
 				AND		l.estatus = '2'
-				AND		l.estatus = '4'
+				AND		l.estatus = '5'
 				ORDER BY l.id
 				DESC LIMIT 10;";
 	$result = mysql_query($query);
 	
 	return $result;
 	
+}
+
+function contarActivas() {
+	$query = "SELECT COUNT(*) FROM lista WHERE estatus = '2' AND estatus = '5';";
+	$res = mysql_query($query);
+
+	return $res;
 }
 
 function entradaTurno($fecha,$turno){
@@ -324,20 +331,20 @@ function inserta_nota($array){
 	return $res;
 }
 
-function inserta_entrada($array){
+function inserta_entrada($ingreso){
 	$query = "INSERT INTO lista (id, marca, fecha, hora_inicio, hora_termino, proceso, usuario, estatus, turno, titulo, descripcion)
 			VALUES (null, 
-					current_timestamp, 
-					'".$array['fecha']."', 
-					'".$array['inicio']."', 
-					'".$array['termino']."', 
-					'".$array['proceso']."', 
-					'".$array['usuario']."', 
-					'".$array['estatus']."', 
-					'".$array['turno']."', 
-					'".$array['titulo']."', 
-					'".$array['descripcion']."';)";
-	$res = mysql_query($query);
+					current_timestamp,
+					'".$ingreso['fecha']."',
+					'".$ingreso['inicio']."',
+					'".$ingreso['termino']."',
+					'".$ingreso['proceso']."',
+					'".$ingreso['usuario']."',
+					'".$ingreso['estatus']."',
+					'".$ingreso['turno']."',
+					'".$ingreso['titulo']."',
+					'".$ingreso['descripcion']."');";
+			$res = mysql_query($query);
 	
 	return $res;
 }
