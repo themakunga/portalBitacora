@@ -25,7 +25,7 @@
         <button type="submit" class="btn btn-default">Buscar</button>
       </form>
       <ul class="nav navbar-nav navbar-right">
-        <li><a href="#">Bienvenido |<strong><?php echo $usuario; ?></strong></a></li>
+        <li><a href="./panel">Bienvenido | <strong><?php echo $usuario; ?></strong></a></li>
         <li><a href="#" onclick="location.reload();location.href='functions/logout.php'">Desconectarse</a></li>
       </ul>
     </div>

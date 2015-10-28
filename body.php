@@ -14,7 +14,8 @@
 $result = listadoNotas();
 $entra = contarActivas();
 $notasvigentes = mysql_num_rows($result);
-$entradasvigentes = mysql_num_rows($entra);
+$entradasvigentes = mysql_fetch_array($entra);
+$entradasvigentes = $entradasvigentes['contar'];
 //session_start();
 if(!empty($_SESSION['usuario'])){
 	$usuario = $_SESSION['nombre'];
@@ -55,7 +56,8 @@ if(!empty($_SESSION['usuario'])){
 		</div>
 		<div class="tab-pane" id="checklist">
 			<p>
-				<?php include 'sections/checklist.php';?></p>
+				<?php include 'sections/checklist.php';?>
+			</p>
 		</div>
 	</div>
 </div>

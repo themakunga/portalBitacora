@@ -100,6 +100,22 @@ function iconosNotas($id){
 	return $output;
 }
 
+function iconoPend($id){
+	$query = "SELECT estatus FROM lista WHERE id = '".$id."';";
+	$res = mysql_query($query);
+	while ($salida = mysql_fetch_array($res)){
+		if ($salida['estatus'] == '5'){
+			$output = "<span class='label label-warning'>Pendiente</span>";
+		}else{
+			if ($salida['estatus'] = '2'){
+				$output = "<span class='label label-primary'>En ejecucion</span>";
+			}
+		}
+
+	}
+	return $output;
+}
+
 function obtener_notas($id){
 	$query = "SELECT * FROM notas WHERE id = '".$id."' and estado <> '2';";
 	$res = mysql_query($query) or mysql_error();
@@ -171,8 +187,9 @@ function entradasEjecucion(){
 				WHERE   l.proceso = p.id
 				AND     l.estatus = e.id
 				AND     l.usuario = u.id
-				AND		l.estatus = '2'
-				AND		l.estatus = '5'
+				AND		l.estatus <> '1'
+				AND		l.estatus <> '3'
+				AND 	l.estatus <> '4'
 				ORDER BY l.id
 				DESC LIMIT 10;";
 	$result = mysql_query($query);
@@ -182,7 +199,7 @@ function entradasEjecucion(){
 }
 
 function contarActivas() {
-	$query = "SELECT COUNT(*) FROM lista WHERE estatus = '2' AND estatus = '5';";
+	$query = "SELECT COUNT(*) as contar FROM lista WHERE estatus <> '1' AND estatus <> '3' AND estatus <> '4';";
 	$res = mysql_query($query);
 
 	return $res;

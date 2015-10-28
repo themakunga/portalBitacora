@@ -46,6 +46,7 @@ if (isset($_POST['ingresar'])) {
 	}
 }
 
+header('Location: ../index.php#insertar');
 
 
 ?>
