@@ -1,25 +1,26 @@
 <?php
 require('conexion.php');
+//$db_handle = new DBController();
 
 //FUNCIONES PHP
 
 //funciones de estructura
 function get_opc($val){
-	$query = 'SELECT * FROM opciones WHERE id = "$val";';
-	
+	//$query = 'SELECT * FROM opciones WHERE id = "$val";';
+	$query = $db_handle->runQuery('SELECT * FROM opciones WHERE id = "$val";');
 	$result = mysql_query($query);
-	
+
 	return $result;
 }
 
-  
+
 //funciones validacion
 function comprobarLogin($usuario,$password){
 	$query = "SELECT * FROM usuarios WHERE username = '".$usuario."' and password = '".$password."';";
 	$result = mysql_query($query);
-	
+
 	return $result;
-	
+
 }
 
 
@@ -28,14 +29,14 @@ function validaTurno($turno,$fecha,$inicio,$fin){
 	$res = mysql_query($query);
 	$res = mysql_num_rows($res);
 	//return $res;
-	
+
 	if($turno == '3' and $res >='0'){
 		$fecha_fin = date("d-m-Y",strtotime ( '-1 day' , strtotime ( $fecha ) ) );
 	}else{
 		$fecha_fin = $fecha;
 	}
 	return $fecha_fin;
-	
+
 }
 
 //funciones de listado
@@ -43,33 +44,33 @@ function validaTurno($turno,$fecha,$inicio,$fin){
 function listadoProcesos(){
 	$query = "SELECT * FROM lista_procesos;";
 	$result = mysql_query($query);
-	
-	
+
+
 	return $result;
-	
+
 }
 function list_tipo_notas(){
 	$query = "SELECT * FROM notas_nivel;";
 	$result = mysql_query($query);
-	
+
 	return $result;
-	
+
 }
 
 function list_estatus_notas(){
 	$query = "SELECT * FROM notas_status;";
 	$result = mysql_query($query);
-	
+
 	return $result;
-	
+
 }
 
 function listadoNotas(){
 	$query = 'SELECT * FROM notas WHERE estado <> 2 order by stampa DESC;';
 	$res = mysql_query($query);
-	
+
 	return $res;
-	
+
 }
 
 function iconosNotas($id){
@@ -93,7 +94,7 @@ function iconosNotas($id){
 					}
 				}
 			}
-		}	
+		}
 
 	}
 
@@ -119,17 +120,17 @@ function iconoPend($id){
 function obtener_notas($id){
 	$query = "SELECT * FROM notas WHERE id = '".$id."' and estado <> '2';";
 	$res = mysql_query($query) or mysql_error();
-	
+
 	return $res;
 }
 
 function ultimasNotas(){
-	$query = "SELECT 	n.id as id, 
-						n.fecha_crea as fecha,	
-						n.descripcion as descripcion, 
-						u.username as usuario, 
-						e.valor as estado, 
-						i.valor as importancia, 
+	$query = "SELECT 	n.id as id,
+						n.fecha_crea as fecha,
+						n.descripcion as descripcion,
+						u.username as usuario,
+						e.valor as estado,
+						i.valor as importancia,
 						n.fecha_edit as modificacion
 	FROM notas n, usuarios u, notas_status e, notas_nivel i
 			WHERE n.estado = e.id
@@ -138,16 +139,16 @@ function ultimasNotas(){
 			AND n.usuario = u.id
 			ORDER BY n.id DESC;";
 	$res = mysql_query($query);
-	
-	return $res;	
+
+	return $res;
 }
 
 function listaTurno(){
 	$query = "SELECT * FROM usuarios_turnos;";
 	$result = mysql_query($query);
-	
+
 	return $result;
-	
+
 }
 
 function ultimasEntradas(){
@@ -168,7 +169,7 @@ function ultimasEntradas(){
 				ORDER BY l.id
 				DESC LIMIT 10;";
 	$result = mysql_query($query);
-	
+
 	return $result;
 }
 
@@ -193,9 +194,9 @@ function entradasEjecucion(){
 				ORDER BY l.id
 				DESC LIMIT 10;";
 	$result = mysql_query($query);
-	
+
 	return $result;
-	
+
 }
 
 function contarActivas() {
@@ -226,9 +227,9 @@ function entradaTurno($fecha,$turno){
 				AND		l.turno = '".$turno."'
 				ORDER BY l.id;";
 	$result = mysql_query($query);
-	
+
 	return $result;
-	
+
 }
 
 //funciones de conversor
@@ -239,7 +240,7 @@ function convertir_fecha($date,$val){
 		$fecha = date("d-m-Y",strtotime($date));
 	}
 
-	return $fecha;	
+	return $fecha;
 }
 
 function fecha_visible($date,$val){
@@ -249,8 +250,8 @@ function fecha_visible($date,$val){
 		$fecha = date("d-m-Y H:i:s",strtotime($date));
 	}
 
-	return $fecha;	
-	
+	return $fecha;
+
 }
 
 function noTime($input){
@@ -259,7 +260,7 @@ function noTime($input){
 	}else{
 		$res = "EE:EE";
 	}
-	
+
 	return $res;
 }
 
@@ -285,7 +286,7 @@ function designaEstado($inicio, $fin){
 		}
 
 	}
-		
+
 	return $res;
 }
 
@@ -294,18 +295,18 @@ function newEstado_nota($id,$usuario){
 	$query = "UPDATE notas SET estado = '2', fecha_edit = current_timestamp, usuario = '".$usuario."' WHERE id = '".$id."';";
 	//$query = "UPDATE notas SET estado = '2', fecha_edit = current_timestamp, usuario  WHERE id = '".$id."';";
 	$res = mysql_query($query);
-	
+
 	return $res;
-	
+
 }
 
 function revalida_nota($id,$usuario){
 	$query = "UPDATE notas SET estado = '1', fecha_edit = current_timestamp, usuario = '".$usuario."' WHERE id = '".$id."';";
 	//$query = "UPDATE notas SET estado = '1', fecha_edit = current_timestamp  WHERE id = '".$id."';";
 	$res = mysql_query($query);
-	
-	return $res;	
-	
+
+	return $res;
+
 }
 
 function nota_edit($array){
@@ -317,40 +318,40 @@ function nota_edit($array){
 						WHERE id = '".$array['id']."';";
 
 	$res = mysql_query($query);
-	
+
 	return $res;
 }
 
 //inserciones
 
 function crea_usuario($array){
-	
-	$query = "INSERT INTO usuarios (id,username, fullname, email, password, level) 
+
+	$query = "INSERT INTO usuarios (id,username, fullname, email, password, level)
 			VALUES (null, '".$array['usuario']."', '".$array['nombre']."', '".$array['mail']."', '".$array['password']."', '5' ); ";
 	$res = mysql_query($query);
-	
+
 	return $res;
-	
+
 }
 
 function inserta_nota($array){
-	$query = "INSERT INTO notas (id, stampa, fecha_crea, fecha_edit, estado, importancia, usuario, descripcion) 
-			VALUES (null, 
-				current_timestamp, 
-				current_date, 
-				current_timestamp, 
-				'".$array['estado']."', 
-				'".$array['importancia']."', 
-				'".$array['usuario']."', 
+	$query = "INSERT INTO notas (id, stampa, fecha_crea, fecha_edit, estado, importancia, usuario, descripcion)
+			VALUES (null,
+				current_timestamp,
+				current_date,
+				current_timestamp,
+				'".$array['estado']."',
+				'".$array['importancia']."',
+				'".$array['usuario']."',
 				'".$array['notas']."');";
 	$res = mysql_query($query);
-	
+
 	return $res;
 }
 
 function inserta_entrada($ingreso){
 	$query = "INSERT INTO lista (id, marca, fecha, hora_inicio, hora_termino, proceso, usuario, estatus, turno, titulo, descripcion)
-			VALUES (null, 
+			VALUES (null,
 					current_timestamp,
 					'".$ingreso['fecha']."',
 					'".$ingreso['inicio']."',
@@ -362,14 +363,14 @@ function inserta_entrada($ingreso){
 					'".$ingreso['titulo']."',
 					'".$ingreso['descripcion']."');";
 			$res = mysql_query($query);
-	
+
 	return $res;
 }
 
 function listaChklst(){
 	$query = "SELECT * FROM  chklist_list_main ORDER BY chklist_list_main.horario ASC;";
 	$res = mysql_query($query);
-	
+
 	return $res;
 }
 
@@ -396,11 +397,10 @@ function validaDate($opc){
 			break;
 		case 'Sun':
 			$resp = 'D';
-			break; 
+			break;
 		default:
 			$resp = 'X';
 			break;
-	}	
+	}
 }
 ?>
-

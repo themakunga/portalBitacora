@@ -32,7 +32,11 @@ $estatus = list_estatus_notas();
 								<td class="col-xs-1">'.iconosNotas($lista['id']).'</td>
 								<td class="col-xs-8">'.$lista['descripcion'].'</td>
 								<td class="col-xs-1"><input type="checkbox" name="nota[]" value="'.$lista['id'].'"></td>
-								<td class="col-xs-1"><a href="#" id="reg_link" data-toggle="modal" data-book-id="'.$lista[descripcion].'">Editar</a></td>
+								<td class="col-xs-1"><a href="#" id="reg_link"  data-toggle="modal"
+                                                                data-id="'.$lista['id'].'"
+                                                                data-descripcion="'.$lista['descripcion']'"
+                                                                data-estatus="'.$lista['estado']'"
+                                                                data-importancia="'.$lista['importancia'].'">Editar</a></td>
 							</tr>';
 
 			}else{
@@ -42,7 +46,11 @@ $estatus = list_estatus_notas();
 							<td class="col-xs-1">'.iconosNotas($lista['id']).'</td>
 							<td class="col-xs-8">'.$lista['descripcion'].'</td>
 							<td class="col-xs-1"><input type="checkbox" name="nota[]" value="'.$lista['id'].'"></td>
-							<td class="col-xs-1"><a href="#" id="reg_link" data-toggle="modal" data-book-id="'.$lista[descripcion].'">Editar</a></td>
+              <td class="col-xs-1"><a href="#" id="reg_link"  data-toggle="modal"
+                                                              data-id="'.$lista['id'].'"
+                                                              data-descripcion="'.$lista['descripcion']'"
+                                                              data-estatus="'.$lista['estado']'"
+                                                              data-importancia="'.$lista['importancia'].'">Editar</a></td>
             </tr>';
 				}else{
 					if($lista['importancia'] == 4){
@@ -51,14 +59,22 @@ $estatus = list_estatus_notas();
 							<td class="col-xs-1">'.iconosNotas($lista['id']).'</td>
 							<td class="col-xs-8"><i>'.$lista['descripcion'].'</i></td>
 							<td class="col-xs-1"><input type="checkbox" name="nota[]" value="'.$lista['id'].'"></td>
-              <td class="col-xs-1"><a href="#" id="reg_link" data-toggle="modal" data-book-id="'.$lista[descripcion].'">Editar</a></td>
+              <td class="col-xs-1"><a href="#" id="reg_link"  data-toggle="modal"
+                                                              data-id="'.$lista['id'].'"
+                                                              data-descripcion="'.$lista['descripcion']'"
+                                                              data-estatus="'.$lista['estado']'"
+                                                              data-importancia="'.$lista['importancia'].'">Editar</a></td>
             </tr>';
 						}else{
 							echo '<tr class="info"><td class="col-xs-1">'.convertir_fecha($lista['fecha_crea'],1).'</td>
 							<td class="col-xs-1">'.iconosNotas($lista['id']).'</td>
 							<td class="col-xs-8"><i>'.$lista['descripcion'].'</i></td>
 							<td class="col-xs-1"><input type="checkbox" name="nota[]" value="'.$lista['id'].'"></td>
-							<td class="col-xs-1"><a href="#" id="reg_link" data-toggle="modal" data-book-id="'.$lista[descripcion].'">Editar</a></td>
+              <td class="col-xs-1"><a href="#" id="reg_link"  data-toggle="modal"
+                                                              data-id="'.$lista['id'].'"
+                                                              data-descripcion="'.$lista['descripcion']'"
+                                                              data-estatus="'.$lista['estado']'"
+                                                              data-importancia="'.$lista['importancia'].'">Editar</a></td>
 						</tr>';
 
 						}
@@ -108,7 +124,7 @@ $estatus = list_estatus_notas();
     	</select>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
         <input class="btn btn-success" type="submit" name="insertar" value="Ingresar Nota"/>
       </div>
     </div>
@@ -116,7 +132,31 @@ $estatus = list_estatus_notas();
 </div>
 </form>
 
+<div class="modal fade" id="modal-edit" tabindex="-1" role="dialog" aria-labelledby="" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id=""></h4>
+      </div>
+      <div class="modal-body">
+        <input type="text" name="NotaEdDescripcion" value=""/>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary"></button>
+      </div>
+    </div>
+  </div>
+</div>
 
+<script type="text/javascript">
+  $('#modal-edit').on('show.bs.modal', function(e) {
+    var editDescripcion = $(e.relatedTarget).data(descripcion);
+
+    $(e.currentTarget).find('input[name="NotaEdDescripcion"]').val(editDescripcion);
+  });
+</script>
 <script>
 	function newNota(sitio){
 		var opciones = "toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=no, resizable=no, width=550, height=410, top=85, left=140";
