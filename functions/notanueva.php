@@ -10,11 +10,8 @@ if(isset($_POST['insertar'])){
 							estado => $_POST['n_nivel'],
 							importancia => $_POST['n_tipos']);
 		inserta_nota($ingreso);
-		
+
 	}
-	?>
-		<script>
-			javascript:window.close();
-		</script>
-	<?php 
+	header('Location: ../index.php#notas');
+
 }

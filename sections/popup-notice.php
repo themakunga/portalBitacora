@@ -8,46 +8,54 @@ $estados = list_estatus_notas();
 
 ?>
 <script>
-	function refreshParent() 
+	function refreshParent()
 	{
     	window.opener.location.reload(true);
 	}
 </script>
 <link type="text/css" rel="stylesheet" href="../css/bootstrap.css"  media="screen,projection"/></link>
-<body class"col-lg-6" onunload="javascript:refreshParent()">
-	<form name="popup-notice" method="post" action="../functions/f-notice.php">
-		<?php while($list = mysql_fetch_array($newkey)){?>
-			<h3>Editar Nota <small>ID <?php echo $key;?></small></h3>
-			<div class="well bs-component">
-				<textarea name="texto" class="form-control" rows="3"><?php echo $list['descripcion'];?></textarea>
-				<br>
-				<label>Tipo</label>
-				<select name="n_tipos" class="form-control">
-					<?php 
-						while($impor=mysql_fetch_array($tipos)){
-							echo '<option value="'.$impor['id'].'">'.$impor['valor'].'</option>';
-						} 
-					?>	
-				</select>
-				<label>Estatus</label>
-				<select class="form-control" name="n_nivel">
-					<?php 
-						while($nivel=mysql_fetch_array($estados)){
-							echo '<option value="'.$nivel['id'].'">'.$nivel['valor'].'</option>';
-						} 
-					?>	
-				</select>
-				<input class="hidden" name="id" value="<?php echo $key;?>"></input>
-				<br>
-				<span class="botonera">
+<body onunload="javascript:refreshParent()">
+
+
+<form class="form-horizontal form" action="../functions/f-notice.php" method="post">
+	<?php while($list = mysql_fetch_array($newkey)){?>
+	<div class="modal fade" id="" tabindex="-1" role="dialog" aria-labelledby="" aria-hidden="true">
+	  <div class="modal-dialog">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+	        <h4 class="modal-title" id="">Editar Nota <small>ID <?php echo $key;?></small></h4>
+	      </div>
+	      <div class="modal-body">
+					<textarea name="texto" class="form-control" rows="3"><?php echo $list['descripcion'];?></textarea>
+					<br>
+					<label>Tipo</label>
+					<select name="n_tipos" class="form-control">
+						<?php
+							while($impor=mysql_fetch_array($tipos)){
+								echo '<option value="'.$impor['id'].'">'.$impor['valor'].'</option>';
+							}
+						?>
+					</select>
+					<label>Estatus</label>
+					<select class="form-control" name="n_nivel">
+						<?php
+							while($nivel=mysql_fetch_array($estados)){
+								echo '<option value="'.$nivel['id'].'">'.$nivel['valor'].'</option>';
+							}
+						?>
+					</select>
+					<input class="hidden" name="id" value="<?php echo $key;?>"></input>
+					<br>
+	      </div>
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 					<input class="btn btn-success" type="submit" name="edit" value="Guardar Cambios" />
 					<input class="btn btn-danger" type="submit" name="del" value="Eliminar Entrada"/>
-					<input class="btn btn-default" type="submit" name="cerrar" value="Cerrar" onclick="javascript:window.close()"/>
-				</span>
-			
-		<?php } ?>
-		</div>	
-	</form>
-	
-
+	      </div>
+	    </div>
+	  </div>
+	</div>
+</form>
+<?php } ?>
 </body>

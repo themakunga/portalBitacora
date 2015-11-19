@@ -4,7 +4,7 @@
 	<script src="js/bootstrap.min.js"></script>
 	<script src="dist/jquery-clockpicker.min.js"></script>
 	<script src="js/jquery.validate.js"></script>
-	
+
 	<div id="header">
 		<br>
 		<br></br>
@@ -21,20 +21,20 @@ if(!empty($_SESSION['usuario'])){
 	$usuario = $_SESSION['nombre'];
 	include('navbar.php');
 	?>
-  	
+
 	<div id="myTabContent" class="tab-content">
 		<div class="tab-pane fade" id="notas">
 			<p>
-				<?php 
-					include 'sections/notice.php'; 
+				<?php
+					include 'sections/notice.php';
 				?>
 			</p>
 		</div>
 		<div class="tab-pane fade in active" id="insertar">
 			<p>
-				<?php 
+				<?php
 					include 'sections/main-insert.php';
-					//include 'sections/insertar.php'; 
+					//include 'sections/insertar.php';
 					//include 'sections/activas.php';
 					include 'sections/ultimas.php';
 				?>
@@ -42,7 +42,7 @@ if(!empty($_SESSION['usuario'])){
 		</div>
 		<div class="tab-pane fade" id="editar">
 			<p>
-				<?php 
+				<?php
 					include 'sections/editar.php';
 				?>
 			</p>
@@ -78,10 +78,10 @@ if(!empty($_SESSION['usuario'])){
     var hash = window.location.hash;
     $('#myTab a[href="' + hash + '"]').tab('show');
 </script>
-<?php	
+<?php
 	}else{
 		include_once('sections/login.php');
-	
+
 	}
 
 
