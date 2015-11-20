@@ -137,7 +137,9 @@ function ultimasNotas(){
 			AND n.importancia = i.id
 			AND	n.estado <> '1'
 			AND n.usuario = u.id
-			ORDER BY n.id DESC;";
+			ORDER BY n.id DESC
+			LIMIT 10;";
+
 	$res = mysql_query($query);
 
 	return $res;

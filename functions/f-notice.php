@@ -1,35 +1,23 @@
-<body>
 <?php
 session_start();
 require_once ('funciones.php');
 
 if(isset($_POST['edit'])){
-	$ingreso = array(texto => $_POST['texto'],
-					estatus => $_POST['n_nivel'],
-					tipo => $_POST['n_tipos'],
+	$ingreso = array(texto => $_POST['NotaEdDescripcion'],
+					estatus => $_POST['NotaEdEstatus'],
+					tipo => $_POST['NotaEdImportancia'],
 					usuario => $_SESSION['id'],
-					id => $_POST['id']);
+					id => $_POST['NotaEdID']);
 	//var_dump($ingreso);
-		
+
 	nota_edit($ingreso);
-	?>
-		<script>
-			javascript:window.close();
-		</script>
-	<?php 
+		header('Location: ../index.php#notas');
 }else{
 	if(isset($_POST['del'])){
-		newEstado_nota($_POST['id'],$_SESSION['id']);
+		newEstado_nota($_POST['NotaEdID'],$_SESSION['id']);
 
 	}
-	?>
-		<script>
-			javascript:window.close();
-		</script>
-	<?php
+		header('Location: ../index.php#notas');
 }
 
 ?>
-
-	
-</body>
