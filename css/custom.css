@@ -21,8 +21,11 @@
   overflow-y: auto;
 }
 
+.modal {
+  z-index: 1059;
+}
 .popover {
-    z-index: 999999;
+    z-index: 2100;
 }
 
 @font-face {

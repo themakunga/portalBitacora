@@ -4,14 +4,12 @@ require_once('conexion.php');
 session_start();
 
 if(isset($_POST['insertar'])){
-	if(!empty($_POST['notas'])){
 		$ingreso = array( 	usuario => $_SESSION['id'],
 							notas => $_POST['notas'],
 							estado => $_POST['n_nivel'],
 							importancia => $_POST['n_tipos']);
 		inserta_nota($ingreso);
 
-	}
-	header('Location: ../index.php#notas');
 
 }
+	header('Location: ../index.php#notas');

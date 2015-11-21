@@ -94,7 +94,7 @@ $NEEstatus = list_estatus_notas();
 
 </form>
 
-<form name="new_nota" method="POST" action="./functions/notanueva.php">
+<form name="new_nota" method="POST" action="./functions/notanueva.php" role="form" data-toggle="validator">
 <div class="modal fade" id="crea-nota" tabindex="-1" role="dialog" aria-labelledby="" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -105,7 +105,7 @@ $NEEstatus = list_estatus_notas();
       <div class="modal-body">
       <div class="form-group">
         <label for="Tipo"></label>
-        <textarea type="text" class="form-control" id="notas" name="notas" placeholder=""></textarea>
+        <textarea type="text" class="form-control" id="notas" name="notas" placeholder="" required></textarea>
       </div>
       <label>Tipo</label>
     	<select name="n_tipos" class="form-control">
@@ -133,7 +133,7 @@ $NEEstatus = list_estatus_notas();
 </div>
 </form>
 
-<form class="" action="./functions/f-notice.php" method="post">
+<form class="" action="./functions/f-notice.php" method="post" role="form" data-toggle="validator">
 <div class="modal fade" id="modal-edit" tabindex="-1" role="dialog" aria-labelledby="" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -144,7 +144,7 @@ $NEEstatus = list_estatus_notas();
       <div class="modal-body">
         <input type="text" class="hidden" name="NotaEdID" value=""/>
         <div class="form-group">
-            <textarea rows="3" class="form-control" name="NotaEdDescripcion" value=""></textarea>
+            <textarea rows="3" class="form-control" name="NotaEdDescripcion" value="" required></textarea>
         </div>
         <label>Tipo</label>
       	<select name="NotaEdImportancia" class="form-control">

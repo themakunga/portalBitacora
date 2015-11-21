@@ -11,9 +11,7 @@ $fin = noTime($fin);
 $estado = designaEstado($inicio, $fin);
 
 if (isset($_POST['ingresar'])) {
-	if (!empty($_POST['titulo'])) {
-		if (!empty($_POST['desc'])) {
-			$ingreso = array( 	'fecha' => $fecha,
+		$ingreso = array( 	'fecha' => $fecha,
 					'inicio' => $inicio,
 					'termino' => $fin,
 					'proceso' => $_POST['proceso'],
@@ -22,14 +20,11 @@ if (isset($_POST['ingresar'])) {
 					'turno' => $_SESSION['turno'],
 					'titulo' => $_POST['titulo'],
 					'descripcion' => $_POST['desc']);
-
+			//	var_dump($ingreso);
 			inserta_entrada($ingreso);
-		}
-	}
+
 }else{
 	if (isset($_POST['pendiente'])){
-		if(!empty($_POST['titulo'])) {
-			if (!empty($_POST['desc'])) {
 				$ingreso = array( 	'fecha' => $fecha,
 					'inicio' => $inicio,
 					'termino' => $fin,
@@ -41,8 +36,7 @@ if (isset($_POST['ingresar'])) {
 					'descripcion' => $_POST['desc']);
 
 			inserta_entrada($ingreso);
-			}
-		}
+			//var_dump($ingreso);
 	}
 }
 

@@ -168,6 +168,7 @@ function ultimasEntradas(){
 				WHERE   l.proceso = p.id
 				AND     l.estatus = e.id
 				AND     l.usuario = u.id
+				AND 		l.estatus <> '6'
 				ORDER BY l.id
 				DESC LIMIT 10;";
 	$result = mysql_query($query);
@@ -193,6 +194,7 @@ function entradasEjecucion(){
 				AND		l.estatus <> '1'
 				AND		l.estatus <> '3'
 				AND 	l.estatus <> '4'
+				AND 	l.estatus <> '6'
 				ORDER BY l.id
 				DESC LIMIT 10;";
 	$result = mysql_query($query);
@@ -292,6 +294,14 @@ function designaEstado($inicio, $fin){
 	return $res;
 }
 
+function turnoValida($fecha,$turno){
+	$query = "SELECT * FROM lista WHERE turno = '".$turno."';";
+
+	$res = mysql_query($query);
+
+	return $res;
+}
+
 //updates
 function newEstado_nota($id,$usuario){
 	$query = "UPDATE notas SET estado = '2', fecha_edit = current_timestamp, usuario = '".$usuario."' WHERE id = '".$id."';";
@@ -323,6 +333,27 @@ function nota_edit($array){
 
 	return $res;
 }
+
+function edicion_entrada($array){
+	$query = "UPDATE lista SET 	hora_inicio = '".$array['inicio']."',
+															hora_termino = '".$array['fin']."',
+															titulo = '".$array['titulo']."',
+															descripcion = '".$array['texto']."',
+															usuario = '".$array['usuario']."',
+															estatus = '".$array['estatus']."'
+										WHERE id = '".$array['id']."';";
+	$res = mysql_query($query);
+
+	return $res;
+}
+
+function anula_entrada($array){
+	$query = "UPDATE lista SET estatus = '".$array['estatus']."' WHERE id = '".$array['id']."';";
+	$res = mysql_query($query);
+
+	return $res;
+}
+
 
 //inserciones
 

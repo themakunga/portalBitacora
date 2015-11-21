@@ -2,7 +2,7 @@
 $ultimas = ultimasEntradas();
 
 ?>
-<div class="jumbotron col-lg-12">
+<div class="well col-lg-12">
 	<h3>Ultimas Entradas</h3>
 	<table class="table table-striped table-hover">
 		<thead>
@@ -14,7 +14,7 @@ $ultimas = ultimasEntradas();
 			<th>Status</th>
 		</thead>
 		<tbody>
-			<?php 
+			<?php
 				while($list = mysql_fetch_array($ultimas)){
 					echo "<tr><td width='12%'>".$list['tipo']."</td>";
 					echo "<td width='20%'>".$list['titulo']."</td>";

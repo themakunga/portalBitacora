@@ -1,13 +1,13 @@
 <?php require ('scripts/js_base/js_scripts.php');?>
-<body onload="mueveReloj()">
+<body>
 	<script src="http://code.jquery.com/jquery-2.1.0.min.js"></script>
 	<script src="js/bootstrap.min.js"></script>
 	<script src="dist/jquery-clockpicker.min.js"></script>
-	<script src="js/jquery.validate.js"></script>
+	<script src="js/validator.js"></script>
 
 	<div id="header">
 		<br>
-		<br></br>
+		<br>
 	</div>
 <div class="container">
 <?php
@@ -35,7 +35,7 @@ if(!empty($_SESSION['usuario'])){
 				<?php
 					include 'sections/main-insert.php';
 					//include 'sections/insertar.php';
-					//include 'sections/activas.php';
+					include 'sections/activas.php';
 					include 'sections/ultimas.php';
 				?>
 			</p>
