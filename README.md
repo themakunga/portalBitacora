@@ -5,10 +5,10 @@
 bitacora +  checklist para operadores informaticos, mas export a excel / pdfs
 
 
-sitio web creado en php + mysql + bootstrap + jquery.
+sitio web creado en php + mysql + bootstrap (bootswatch:spacelab) + jquery.
 
 
-por el momento tiene problemas en las validaciones de insercion, ademas de como exportar a excel.
+por el momento tiene problemas en las validaciones de insersion, ademas de como exportar a excel.
 
 #puntos a corregir
  
@@ -28,8 +28,8 @@ por el momento tiene problemas en las validaciones de insercion, ademas de como 
 
 #sugerencias
 
-  hoja de estilos
+  hoja de estilos (en proceso)
   
-  imagenes e iconos
+  imagenes e iconos (solicitados y personalizados)
   
 
