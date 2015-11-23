@@ -23,6 +23,13 @@ if(!empty($_SESSION['usuario'])){
 	?>
 
 	<div id="myTabContent" class="tab-content">
+		<div class="tab-pane fade" id="panel">
+			<p>
+				<?php
+					include 'sections/panel.php';
+				?>
+			</p>
+		</div>
 		<div class="tab-pane fade" id="notas">
 			<p>
 				<?php

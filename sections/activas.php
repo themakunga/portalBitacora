@@ -51,10 +51,11 @@ $ultimas = entradasEjecucion();
 				  <label for="titulo"></label>
 				  <input type="text" class="form-control" id="EntEdTitulo" name="EntEdTitulo" value="" required/>
 				</div>
-				<div class="form-group col-xs-6">
+
 				  <label for="descripcion"></label>
 				  <textarea class="form-control" id="EntEdDescripcion" name="EntEdDescripcion" value="" required></textarea>
-				</div>
+
+				<div class="form-group col-xs-6">
 				<div class="form-group">
 					<label for="inicio" class="control-label">Inicio</label>
 					<div class="input-group clockpickerInicio">
@@ -70,7 +71,7 @@ $ultimas = entradasEjecucion();
 						});
 					</script>
 				</div>
-
+				</div>
 			<div class="form-group col-xs-6">
 				<label for="fin" class="control-label">Fin</label>
 				<div class="input-group clockpickerFin">
@@ -88,7 +89,7 @@ $ultimas = entradasEjecucion();
 			</div>
 
       </div>
-      <div class="modal-footer">
+      <div class="modal-footer btn-group">
 				<input class="btn btn-success" type="submit" name="finalizar" value="Finalizar Entrada">
 				<input class="btn btn-danger" type="submit" name="eliminar" value="Eliminar Entrada">
 				<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>

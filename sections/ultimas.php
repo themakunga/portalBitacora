@@ -21,7 +21,7 @@ $ultimas = ultimasEntradas();
 					echo "<td>".$list['descripcion']."</td>";
 					echo "<td width='7%'>".$list['inicio']."</td>";
 					echo "<td width='7%'>".$list['fin']."</td>";
-					echo "<td width='8%'>".$list['estatus']."</td></tr>";
+					echo "<td width='8%'>".iconosLista($list['id'])."</td></tr>";
 				}
 			?>
 		</tbody>

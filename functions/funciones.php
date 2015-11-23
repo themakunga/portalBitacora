@@ -39,6 +39,15 @@ function validaTurno($turno,$fecha,$inicio,$fin){
 
 }
 
+function get_usuario($id){
+	$query = "SELECT * FROM usuarios WHERE id = ".$id.";";
+	$res = mysql_query($query);
+
+	while($lt = mysql_fetch_array($res)){
+		$output = $lt['fullname'];
+	}
+	return $output;
+}
 //funciones de listado
 
 function listadoProcesos(){
@@ -98,6 +107,36 @@ function iconosNotas($id){
 
 	}
 
+	return $output;
+}
+
+function iconosLista($id){
+	$query = "SELECT l.estatus, e.descripcion  FROM lista l, lista_status e WHERE l.id = '".$id."' AND l.estatus = e.id ;";
+	$res = mysql_query($query);
+
+	while($la = mysql_fetch_array($res)){
+		if($la['estatus'] == '1'){
+			$output = "<span class='label label-success' data-container='body' data-toggle='popover' data-placement='top' data-content='".$la['descripcion']."'>Ejecutado</span>";
+		}else{
+			if($la['estatus'] == '2'){
+				$output = "<span class='label label-primary' data-container='body' data-toggle='popover' data-placement='top' data-content='".$la['descripcion']."'>En Ejecucion</span>";
+			}else{
+				if($la['estatus'] == '3'){
+					$output = "<span class='label label-info' data-container='body' data-toggle='popover' data-placement='top' data-content='".$la['descripcion']."'>Finalizado</span>";
+				}else{
+					if($la['estatus'] == '4'){
+						$output = "<span class='label label-default' data-container='body' data-toggle='popover' data-placement='top' data-content='".$la['descripcion']."'>Inmediato</span>";
+					}else{
+						if($la['estatus'] == '5'){
+							$output = "<span class='label label-warning' data-container='body' data-toggle='popover' data-placement='top' data-content='".$la['descripcion']."'>Pendiente</span>";
+						}else{
+							$output = "<span class='label label-danger' data-container='body' data-toggle='popover' data-placement='top' data-content='".$la['descripcion']."'>Eliminada</span>";
+						}
+					}
+				}
+			}
+		}
+	}
 	return $output;
 }
 
@@ -204,7 +243,7 @@ function entradasEjecucion(){
 }
 
 function contarActivas() {
-	$query = "SELECT COUNT(*) as contar FROM lista WHERE estatus <> '1' AND estatus <> '3' AND estatus <> '4';";
+	$query = "SELECT COUNT(*) as contar FROM lista WHERE estatus <> '1' AND estatus <> '3' AND estatus <> '4' and estatus <> '6';";
 	$res = mysql_query($query);
 
 	return $res;
@@ -305,7 +344,7 @@ function turnoValida($fecha,$turno){
 //updates
 function newEstado_nota($id,$usuario){
 	$query = "UPDATE notas SET estado = '2', fecha_edit = current_timestamp, usuario = '".$usuario."' WHERE id = '".$id."';";
-	//$query = "UPDATE notas SET estado = '2', fecha_edit = current_timestamp, usuario  WHERE id = '".$id."';";
+
 	$res = mysql_query($query);
 
 	return $res;
@@ -314,7 +353,7 @@ function newEstado_nota($id,$usuario){
 
 function revalida_nota($id,$usuario){
 	$query = "UPDATE notas SET estado = '1', fecha_edit = current_timestamp, usuario = '".$usuario."' WHERE id = '".$id."';";
-	//$query = "UPDATE notas SET estado = '1', fecha_edit = current_timestamp  WHERE id = '".$id."';";
+
 	$res = mysql_query($query);
 
 	return $res;
@@ -434,6 +473,71 @@ function validaDate($opc){
 		default:
 			$resp = 'X';
 			break;
+	}
+}
+
+function saludoNew($time){
+ if ($time > '07:00' AND $time < '12:00') {
+ 	$output = "¡Buenos Dias!";
+}else{
+	if($time > '12:00' AND $time < '19:59') {
+		$output = "¡Buenas Tardes!";
+	}else{
+		$output = "¡Buenas Noches!";
+	}
+}
+return $output;
+}
+
+function UltimaBitacora(){
+	$query = "SELECT * FROM meta_bitacora ORDER BY id DESC LIMIT 1;";
+	$res = mysql_query($query);
+
+	return $res;
+}
+
+function botonBitacora($var){
+	while($ub = mysql_fetch_array($var)){
+		if (empty($ub['cierre'])) {
+			$res = "<input type='submit' class='btn btn-danger' value='Cerrar Bitacora' id='cierre' name='cierre' />\t Bitacora Creada en ".fecha_visible($ub['apertura'],'1')." Por <strong>".get_usuario($ub['usr_apertura'])."</strong>.";
+		}else{
+			$res = "<input type='submit' class='btn btn-success' value='Crear Bitacora' id='apertura' name='apertura' />";
+		}
+	}
+	return $res;
+}
+
+function totalesEstatus($bitacora){
+	$res1 = mysql_query("SELECT COUNT(*) FROM lista WHERE bitacora = ".$bitacora.";");
+	$total = mysql_result($res1, 0);
+	$res2 = mysql_query("SELECT COUNT(*) FROM lista WHERE bitacora = ".$bitacora." AND estatus = '1' or estatus = '3' or estatus = '4';");
+	$ejecut = mysql_result($res2, 0);
+	$res3 = mysql_query("SELECT COUNT(*) FROM lista WHERE bitacora = ".$bitacora." AND estatus = '2';");
+	$enejec = mysql_result($res3, 0);
+	$res4 = mysql_query("SELECT COUNT(*) FROM lista WHERE bitacora = ".$bitacora." AND estatus = '5';");
+	$pend = mysql_result($res4, 0);
+	$res5 = mysql_query("SELECT COUNT(*) FROM lista WHERE bitacora = ".$bitacora." AND estatus = '6';");
+	$elim = mysql_result($res5, 0);
+	$por_ej = round((($ejecut * 100)/$total), 2);
+	$por_en = round((($enejec * 100)/$total), 2);
+	$por_pe = round((($pend * 100)/$total), 2);
+	$por_el = round((($elim * 100)/$total), 2);
+	$output = '<div class="progress progress-striped active">
+  <div class="progress-bar progress-bar-success" style="width: '.$por_ej.'%"></div>
+  <div class="progress-bar progress-bar-primary" style="width: '.$por_en.'%"></div>
+  <div class="progress-bar progress-bar-warning" style="width: '.$por_pe.'%"></div>
+	<div class="progress-bar progress-bar-danger" style="width: '.$por_el.'%"></div>
+</div>';
+
+
+	return $output;
+}
+
+function set_bitacora($boolean){
+	if($boolean === true){
+		mysql_query("INSERT into meta_bitacora (id, estampa, apertura, usr_apertura) VALUES (null, current_timestamp, current_timestamp, ".$_SESSION['id'].");");
+	}else{
+		mysql_query("UPDATE meta_bitacora SET ()");
 	}
 }
 ?>
