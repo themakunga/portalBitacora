@@ -102,7 +102,8 @@ $(function () {
               name: 'Reinicios',
               y: <?php echo json_encode($char['reinicios']);?>
           }, {
-            
+              name: 'Cotizador - Validador',
+              y: <?php echo json_encode($char['cotval']);?>
           }]
       }]
   });
