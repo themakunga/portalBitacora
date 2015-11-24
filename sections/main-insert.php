@@ -23,8 +23,8 @@
 						<input type="text" class="form-control" name="titulo" id="titulo" placeholder="Ingrese Titulo" required>
 				</div>
 				<div class="form-group">
-						<select name="proceso" class="form-control">
-							<option value="null"> -Elija Proceso- </option>
+						<select name="proceso" class="form-control" required>
+							<option value="null" disabled="disabled"> -Elija Proceso- </option>
 							<?php
 								$procesos = listadoProcesos();
 								while ($list = mysql_fetch_array($procesos)){

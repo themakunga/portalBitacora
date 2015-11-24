@@ -12,9 +12,9 @@
 
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-2">
       <ul class="nav navbar-nav" id="myTab">
-        <li><a href="#panel" data-toggle="tab" >Panel</a></li>
-        <li><a href="#notas" data-toggle="tab" >Notas <span class="badge"><?php echo "$notasvigentes"; ?></span></a></li>
-        <li class="active"><a href="#insertar" data-toggle="tab">Insertar <span class="badge"><?php echo "$entradasvigentes"; ?></a></li>
+        <li><a href="#panel" data-toggle="tab" ><span class="glyphicon glyphicon-th-list"></span> Panel</a></li>
+        <li><a href="#notas" data-toggle="tab" ><span class="glyphicon glyphicon-file"></span> Notas <span class="badge"><?php echo "$notasvigentes"; ?></span></a></li>
+        <li class="active"><a href="#insertar" data-toggle="tab"><span class="glyphicon glyphicon-list-alt"></span> Insertar <span class="badge"><?php echo "$entradasvigentes"; ?></a></li>
         <li><a href="#editar" data-toggle="tab">Editar</a></li>
         <li class="disabled"><a href="#exportar" data-toggle="tab">Exportar</a></li>
         <li class="disabled"><a href="#checklist" data-toggle="tab">Checklist</a></li>
@@ -23,7 +23,7 @@
         <div class="form-group">
           <input type="text" class="form-control" placeholder="Ingrese Parámetro">
         </div>
-        <button type="submit" class="btn btn-default">Buscar</button>
+        <button type="submit" class="btn btn-default">Buscar <span class="glyphicon glyphicon-search"></span></button>
       </form>
       <ul class="nav navbar-nav navbar-right">
         <li><a href="./panel">Bienvenido | <strong><?php echo $usuario; ?></strong></a></li>

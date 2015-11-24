@@ -208,8 +208,8 @@ function ultimasEntradas(){
 				AND     l.estatus = e.id
 				AND     l.usuario = u.id
 				AND 		l.estatus <> '6'
-				ORDER BY l.id
-				DESC LIMIT 10;";
+				ORDER BY l.fecha DESC, l.hora_inicio DESC
+				LIMIT 	10;";
 	$result = mysql_query($query);
 
 	return $result;
@@ -249,26 +249,39 @@ function contarActivas() {
 	return $res;
 }
 
-function entradaTurno($fecha,$turno){
-		$query = "	SELECT 	l.id,
-						p.descripcion as tipo,
-        				l.titulo,
-        				l.descripcion,
-        				l.hora_inicio as inicio,
-        				l.hora_termino as fin,
-        				l.fecha as fecha,
-        				l.turno as turno,
-        				e.valor as estatus
-				FROM   	lista l,
-        				lista_procesos p,
-        				lista_status e,
-        				usuarios u
-				WHERE   l.proceso = p.id
-				AND     l.estatus = e.id
-				AND     l.usuario = u.id
-				AND		l.fecha = '".$fecha."'
-				AND		l.turno = '".$turno."'
-				ORDER BY l.id;";
+function entradaTurno($turno){
+		$query = "SELECT 	l.hora_inicio as inicio,
+											l.hora_termino as fin,
+											e.valor as estatus,
+											l.titulo as titulo,
+											l.descripcion as descripcion,
+											t.descripcion as tipo
+							FROM 		lista l, lista_status e, lista_procesos t
+							WHERE 	l.bitacora = (SELECT m.id FROM meta_bitacora m ORDER BY m.id DESC LIMIT 1)
+							AND 		l.turno = '".$turno."'
+							AND 		l.estatus = e.id
+							AND 		l.proceso = t.id
+							AND			l.estatus <> '6'
+							order by hora_inicio ASC;";
+	$result = mysql_query($query);
+
+	return $result;
+
+}
+
+function entradaTurno_($turno){
+		$query = "SELECT 	l.hora_inicio as inicio,
+											l.hora_termino as fin,
+											e.valor as estatus,
+											l.titulo as titulo,
+											l.descripcion as descripcion,
+											t.descripcion as tipo
+							FROM 		lista l, lista_status e, lista_procesos t
+							WHERE 	l.bitacora = (SELECT m.id FROM meta_bitacora m ORDER BY m.id DESC LIMIT 1)
+							AND 		l.turno = '".$turno."'
+							AND 		l.estatus = e.id
+							AND 		l.proceso = t.id
+							order by hora_inicio ASC;";
 	$result = mysql_query($query);
 
 	return $result;
@@ -415,14 +428,15 @@ function inserta_nota($array){
 				'".$array['estado']."',
 				'".$array['importancia']."',
 				'".$array['usuario']."',
-				'".$array['notas']."');";
+				'".utf8_encode($array['notas'])."');";
 	$res = mysql_query($query);
 
 	return $res;
 }
 
 function inserta_entrada($ingreso){
-	$query = "INSERT INTO lista (id, marca, fecha, hora_inicio, hora_termino, proceso, usuario, estatus, turno, titulo, descripcion)
+	$res = mysql_result(UltimaBitacora(), 0);
+	$query = "INSERT INTO lista (id, marca, fecha, hora_inicio, hora_termino, proceso, usuario, estatus, turno, titulo, descripcion, bitacora)
 			VALUES (null,
 					current_timestamp,
 					'".$ingreso['fecha']."',
@@ -432,8 +446,9 @@ function inserta_entrada($ingreso){
 					'".$ingreso['usuario']."',
 					'".$ingreso['estatus']."',
 					'".$ingreso['turno']."',
-					'".$ingreso['titulo']."',
-					'".$ingreso['descripcion']."');";
+					'".utf8_encode($ingreso['titulo'])."',
+					'".utf8_encode($ingreso['descripcion'])."',
+					'".$res."');";
 			$res = mysql_query($query);
 
 	return $res;
@@ -490,7 +505,7 @@ return $output;
 }
 
 function UltimaBitacora(){
-	$query = "SELECT * FROM meta_bitacora ORDER BY id DESC LIMIT 1;";
+		$query = "SELECT * FROM meta_bitacora ORDER BY id DESC LIMIT 1;";
 	$res = mysql_query($query);
 
 	return $res;
@@ -499,9 +514,9 @@ function UltimaBitacora(){
 function botonBitacora($var){
 	while($ub = mysql_fetch_array($var)){
 		if (empty($ub['cierre'])) {
-			$res = "<input type='submit' class='btn btn-danger' value='Cerrar Bitacora' id='cierre' name='cierre' />\t Bitacora Creada en ".fecha_visible($ub['apertura'],'1')." Por <strong>".get_usuario($ub['usr_apertura'])."</strong>.";
+			$res = "<input type='submit' class='btn btn-danger' value='Cerrar Bitacora' id='cierre' name='cierre' /> Bitacora Creada el ".fecha_visible($ub['apertura'],'1')." por <strong>".get_usuario($ub['usr_apertura'])."</strong>.<h3>Estado de Bitacora <small>Actual</small></h3>";
 		}else{
-			$res = "<input type='submit' class='btn btn-success' value='Crear Bitacora' id='apertura' name='apertura' />";
+			$res = "<input type='submit' class='btn btn-success' value='Crear Bitacora' id='apertura' name='apertura' /><h3>Estado de Bitacora <small>Anterior</small></h3> ";
 		}
 	}
 	return $res;
@@ -510,18 +525,27 @@ function botonBitacora($var){
 function totalesEstatus($bitacora){
 	$res1 = mysql_query("SELECT COUNT(*) FROM lista WHERE bitacora = ".$bitacora.";");
 	$total = mysql_result($res1, 0);
-	$res2 = mysql_query("SELECT COUNT(*) FROM lista WHERE bitacora = ".$bitacora." AND estatus = '1' or estatus = '3' or estatus = '4';");
-	$ejecut = mysql_result($res2, 0);
+	$res2_1 = mysql_query("SELECT COUNT(*) FROM lista WHERE bitacora = ".$bitacora." AND estatus = '1';");
+	$ejecut_1 = mysql_result($res2_1, 0);
+	$res2_2 = mysql_query("SELECT COUNT(*) FROM lista WHERE bitacora = ".$bitacora." AND estatus = '3';");
+	$ejecut_2 = mysql_result($res2_2, 0);
+	$res2_3 = mysql_query("SELECT COUNT(*) FROM lista WHERE bitacora = ".$bitacora." AND estatus = '4';");
+	$ejecut_3 = mysql_result($res2_3, 0);
+
 	$res3 = mysql_query("SELECT COUNT(*) FROM lista WHERE bitacora = ".$bitacora." AND estatus = '2';");
 	$enejec = mysql_result($res3, 0);
+
 	$res4 = mysql_query("SELECT COUNT(*) FROM lista WHERE bitacora = ".$bitacora." AND estatus = '5';");
 	$pend = mysql_result($res4, 0);
+
 	$res5 = mysql_query("SELECT COUNT(*) FROM lista WHERE bitacora = ".$bitacora." AND estatus = '6';");
 	$elim = mysql_result($res5, 0);
-	$por_ej = round((($ejecut * 100)/$total), 2);
+
+	$por_ej = round(((($ejecut_1 + $ejecut_2 + $ejecut_3) * 100)/$total), 2);
 	$por_en = round((($enejec * 100)/$total), 2);
 	$por_pe = round((($pend * 100)/$total), 2);
 	$por_el = round((($elim * 100)/$total), 2);
+
 	$output = '<div class="progress progress-striped active">
   <div class="progress-bar progress-bar-success" style="width: '.$por_ej.'%"></div>
   <div class="progress-bar progress-bar-primary" style="width: '.$por_en.'%"></div>
@@ -533,11 +557,42 @@ function totalesEstatus($bitacora){
 	return $output;
 }
 
-function set_bitacora($boolean){
-	if($boolean === true){
-		mysql_query("INSERT into meta_bitacora (id, estampa, apertura, usr_apertura) VALUES (null, current_timestamp, current_timestamp, ".$_SESSION['id'].");");
-	}else{
-		mysql_query("UPDATE meta_bitacora SET ()");
+function char_mes(){
+	$q = mysql_query("SELECT COUNT(*) FROM lista WHERE fecha BETWEEN current_date()-30 AND current_date();");
+	$r = mysql_result($q, 0);
+
+
+	$i = 1;
+	$c = 0;
+	while($c < 11){
+	  $q1 = mysql_query("SELECT COUNT(*) FROM lista WHERE fecha BETWEEN current_date()-30 AND current_date() AND proceso = '".$i."';");
+	  $res[$c] = mysql_result($q1, 0);
+	  $c = $c + 1;
+	  $i++;
 	}
+	$array['monitoreo'] = round((($res[0] * 100)/$r), 1);
+	$array['vtime'] = round((($res[1] * 100)/$r), 1);
+	$array['etl'] = round((($res[2] * 100)/$r), 1);
+	$array['carga'] = round((($res[3] * 100)/$r), 1);
+	$array['respaldos'] = round((($res[4] * 100)/$r), 1);
+	$array['impresion'] = round((($res[5] * 100)/$r), 1);
+	$array['reinicios'] = round((($res[6] * 100)/$r), 1);
+	$array['cotval'] = round((($res[7] * 100)/$r), 1);
+	$array['turno'] = round((($res[8] * 100)/$r), 1);
+	$array['varios'] = round((($res[9] * 100)/$r), 1);
+	$array['otros'] = round((($res[10] * 100)/$r), 1);
+
+	return $array;
+}
+
+function set_bitacora($boolean){
+	session_start();
+	$res = mysql_result(UltimaBitacora(), 0);
+	if($boolean === true){
+		mysql_query("INSERT into meta_bitacora (id, estampa, apertura, usr_apertura) VALUES (null, current_timestamp, current_timestamp, '".$_SESSION['id']."');");
+	}else{
+		mysql_query("UPDATE meta_bitacora SET cierre = current_timestamp, usr_cierre = '".$_SESSION['id']."' WHERE id = '".$res."';");
+	}
+
 }
 ?>
