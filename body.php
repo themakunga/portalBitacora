@@ -4,6 +4,8 @@
 	<script src="js/bootstrap.min.js"></script>
 	<script src="dist/jquery-clockpicker.min.js"></script>
 	<script src="js/validator.js"></script>
+	<script src="js/jspdf.debug.js"></script>
+
 
 	<div id="header">
 		<br>
@@ -66,6 +68,7 @@ if(!empty($_SESSION['usuario'])){
 				<?php include 'sections/checklist.php';?>
 			</p>
 		</div>
+
 	</div>
 </div>
 

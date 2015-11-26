@@ -4,7 +4,7 @@ require ('funciones.php');
 require ('conexion.php');
 
 $fecha = date("Y-m-d");
-$inicio = $_POST['inicio'];
+$inicio = $_POST['inicia'];
 $inicio = noTime($inicio);
 $fin = $_POST['fin'];
 $fin = noTime($fin);

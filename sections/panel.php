@@ -34,8 +34,8 @@ $botonBitacora = botonBitacora($bitacora);
 <br>
 <br>
 <p>
-  <script src="https://code.highcharts.com/highcharts.js"></script>
-  <script src="https://code.highcharts.com/modules/exporting.js"></script>
+  <script src="js/highcharts.js"></script>
+  <script src="js/modules/exporting.js"></script>
 
   <div id="container" style="min-width: 600px; height: 600px; max-width: 600px; margin: 0 auto"></div>
 
@@ -44,7 +44,7 @@ $botonBitacora = botonBitacora($bitacora);
 
  <?php
  $char = char_mes();
- var_dump($char);
+ //var_dump($char);
 ?>
 
 <script type="text/javascript">
@@ -57,7 +57,7 @@ $(function () {
           type: 'pie'
       },
       title: {
-          text: 'Estado de Entradas en bitacora mes +mes+'
+          text: 'Estado de Entradas en bitacora en últimos 30 dias'
       },
       tooltip: {
           pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
@@ -104,6 +104,12 @@ $(function () {
           }, {
               name: 'Cotizador - Validador',
               y: <?php echo json_encode($char['cotval']);?>
+          }, {
+              name: 'Varios',
+              y: <?php echo json_encode($char['varios']);?>
+          }, {
+              name: 'Otros',
+              y: <?php echo json_encode($char['otros']);?>
           }]
       }]
   });

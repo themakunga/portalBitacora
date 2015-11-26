@@ -288,6 +288,7 @@ function entradaTurno_($turno){
 
 }
 
+
 //funciones de conversor
 function convertir_fecha($date,$val){
 	if($val == 0){
@@ -312,7 +313,7 @@ function fecha_visible($date,$val){
 
 function noTime($input){
 	if(!empty($input)){
-		$res = $input;
+		$res = date('H:i',strtotime($input));
 	}else{
 		$res = "EE:EE";
 	}

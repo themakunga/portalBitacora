@@ -2,7 +2,7 @@
 $ultimas = entradasEjecucion();
 
 ?>
-<div class="col-lg-12">
+<div class="well col-lg-12">
 <h3>Entradas Activas</h3>
 <table class="table table-fixed">
 	<thead>
@@ -19,12 +19,12 @@ $ultimas = entradasEjecucion();
 			while($lista = mysql_fetch_array($ultimas)){
 				echo '<tr>
 						<td class="col-xs-1">'.$lista['id'].'</td>
-						<td class="col-xs-7">'.$lista['descripcion'].'</td>
+						<td class="col-xs-7">'.utf8_decode($lista['descripcion']).'</td>
 						<td class="col-xs-1">'.$lista['inicio'].'</td>
 						<td class="col-xs-2">'.iconoPend($lista['id']).'</td>
 						<td class="col-xs-1"><a href="#editEntrada" data-toggle="modal" data-id="'.$lista['id'].'"
-						 																																data-titulo="'.$lista['titulo'].'"
-																																						data-descripcion="'.$lista['descripcion'].'"
+						 																																data-titulo="'.utf8_decode($lista['titulo']).'"
+																																						data-descripcion="'.utf8_decode($lista['descripcion']).'"
 																																						data-horainicio="'.$lista['inicio'].'"
 																																						data-horafin="'.$lista['fin'].'"
 																																						class="btn btn-xs btn-success">Validar</a></td>
@@ -83,7 +83,8 @@ $ultimas = entradasEjecucion();
 				<script type="text/javascript">
 					$('.clockpickerFin').clockpicker({
 						autoclose: true,
-						placement: 'top'
+						placement: 'top',
+						'default': 'now'
 					});
 				</script>
 			</div>

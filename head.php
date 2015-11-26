@@ -16,6 +16,7 @@
 
 
 <?php
+header('Content-Type: charset=utf-8'); 
 require 'functions/conexion.php';
 require 'functions/funciones.php';
 ?>

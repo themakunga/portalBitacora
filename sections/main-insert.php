@@ -24,7 +24,7 @@
 				</div>
 				<div class="form-group">
 						<select name="proceso" class="form-control" required>
-							<option value="null" disabled="disabled"> -Elija Proceso- </option>
+							<option value=""> -Elija Proceso- </option>
 							<?php
 								$procesos = listadoProcesos();
 								while ($list = mysql_fetch_array($procesos)){
@@ -42,7 +42,7 @@
 					<div class="form-group col-xs-6">
 						<label for="inicio" class="control-label">Inicio</label>
 						<div id="clockpickerInicio" class="input-group">
-							<input name="inicio" id="inicio" type="text" class="form-control" value=""/>
+							<input name="inicia" id="inicia" type="text" class="form-control" value="" required/>
 							<span class="input-group-addon">
 								<span class="glyphicon glyphicon-time"></span>
 							</span>
@@ -51,7 +51,8 @@
 							var input = $('#clockpickerInicio');
 							input.clockpicker({
 								placement: 'top',
-   							autoclose: true
+   							autoclose: true,
+								'default': 'now'
 							});
 						</script>
 					</div>
@@ -67,7 +68,8 @@
 					<script type="text/javascript">
 						$('.clockpickerFin').clockpicker({
 						 	autoclose: true,
-							placement: 'top'
+							placement: 'top',
+							'default': 'now'
 						});
 					</script>
 				</div>

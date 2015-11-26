@@ -26,7 +26,7 @@
         <button type="submit" class="btn btn-default">Buscar <span class="glyphicon glyphicon-search"></span></button>
       </form>
       <ul class="nav navbar-nav navbar-right">
-        <li><a href="./panel">Bienvenido | <strong><?php echo $usuario; ?></strong></a></li>
+        <li><a href="./sections/panel">Bienvenido | <strong><?php echo $usuario; ?></strong></a></li>
         <li><a href="#" onclick="location.reload();location.href='functions/logout.php'">Desconectarse</a></li>
       </ul>
     </div>
