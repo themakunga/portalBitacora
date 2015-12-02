@@ -3,7 +3,7 @@ session_start();
 require_once ('funciones.php');
 
 if(isset($_POST['edit'])){
-	$ingreso = array(texto => $_POST['NotaEdDescripcion'],
+	$ingreso = array(texto => utf8_encode($_POST['NotaEdDescripcion']),
 					estatus => $_POST['NotaEdEstatus'],
 					tipo => $_POST['NotaEdImportancia'],
 					usuario => $_SESSION['id'],

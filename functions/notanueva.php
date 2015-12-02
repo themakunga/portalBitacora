@@ -5,7 +5,7 @@ session_start();
 
 if(isset($_POST['insertar'])){
 		$ingreso = array( 	usuario => $_SESSION['id'],
-							notas => $_POST['notas'],
+							notas => utf8_encode($_POST['notas']),
 							estado => $_POST['n_nivel'],
 							importancia => $_POST['n_tipos']);
 		inserta_nota($ingreso);

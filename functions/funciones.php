@@ -249,7 +249,7 @@ function contarActivas() {
 	return $res;
 }
 
-function entradaTurno($turno){
+function entradaTurno($turno, $bitacora){
 		$query = "SELECT 	l.hora_inicio as inicio,
 											l.hora_termino as fin,
 											e.valor as estatus,
@@ -257,7 +257,7 @@ function entradaTurno($turno){
 											l.descripcion as descripcion,
 											t.descripcion as tipo
 							FROM 		lista l, lista_status e, lista_procesos t
-							WHERE 	l.bitacora = (SELECT m.id FROM meta_bitacora m ORDER BY m.id DESC LIMIT 1)
+							WHERE 	l.bitacora = '".$bitacora."'
 							AND 		l.turno = '".$turno."'
 							AND 		l.estatus = e.id
 							AND 		l.proceso = t.id
@@ -288,6 +288,10 @@ function entradaTurno_($turno){
 
 }
 
+function listaBitacoras(){
+	$res = mysql_query("SELECT * FROM meta_bitacora ORDER BY id DESC");
+		return $res;
+}
 
 //funciones de conversor
 function convertir_fecha($date,$val){
@@ -559,14 +563,14 @@ function totalesEstatus($bitacora){
 }
 
 function char_mes(){
-	$q = mysql_query("SELECT COUNT(*) FROM lista WHERE fecha BETWEEN current_date()-30 AND current_date();");
+	$q = mysql_query("SELECT COUNT(*) FROM lista WHERE fecha BETWEEN DATE_SUB(NOW(), INTERVAL 30 DAY) AND NOW();");
 	$r = mysql_result($q, 0);
 
 
 	$i = 1;
 	$c = 0;
 	while($c < 11){
-	  $q1 = mysql_query("SELECT COUNT(*) FROM lista WHERE fecha BETWEEN current_date()-30 AND current_date() AND proceso = '".$i."';");
+	  $q1 = mysql_query("SELECT COUNT(*) FROM lista WHERE proceso = '".$i."' AND fecha BETWEEN DATE_SUB(NOW(), INTERVAL 30 DAY) AND NOW();");
 	  $res[$c] = mysql_result($q1, 0);
 	  $c = $c + 1;
 	  $i++;

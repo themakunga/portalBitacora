@@ -31,11 +31,11 @@ $NEEstatus = list_estatus_notas();
 				echo 	'<tr class="warning">
 								<td class="col-xs-1">'.convertir_fecha($lista['fecha_crea'],1).'</td>
 								<td class="col-xs-1">'.iconosNotas($lista['id']).'</td>
-								<td class="col-xs-8">'.$lista['descripcion'].'</td>
+								<td class="col-xs-8">'.utf8_decode($lista['descripcion']).'</td>
 								<td class="col-xs-1"><input type="checkbox" name="nota[]" value="'.$lista['id'].'"></td>
 								<td class="col-xs-1"><a href="#modal-edit"  data-toggle="modal"
                                                                 data-id="'.$lista['id'].'"
-                                                                data-descripcion="'.$lista['descripcion'].'"
+                                                                data-descripcion="'.utf8_decode($lista['descripcion']).'"
                                                                 data-estatus="'.$lista['estado'].'"
                                                                 data-importancia="'.$lista['importancia'].'">Editar</a></td>
 							</tr>';
@@ -45,11 +45,11 @@ $NEEstatus = list_estatus_notas();
 					echo 	'<h4><tr class="danger">
 							<td class="col-xs-1">'.convertir_fecha($lista['fecha_crea'],1).'</td>
 							<td class="col-xs-1">'.iconosNotas($lista['id']).'</td>
-							<td class="col-xs-8">'.$lista['descripcion'].'</td>
+              <td class="col-xs-8">'.utf8_decode($lista['descripcion']).'</td>
 							<td class="col-xs-1"><input type="checkbox" name="nota[]" value="'.$lista['id'].'"></td>
               <td class="col-xs-1"><a href="#modal-edit"  data-toggle="modal"
                                                               data-id="'.$lista['id'].'"
-                                                              data-descripcion="'.$lista['descripcion'].'"
+                                                              data-descripcion="'.utf8_decode($lista['descripcion']).'"
                                                               data-estatus="'.$lista['estado'].'"
                                                               data-importancia="'.$lista['importancia'].'">Editar</a></td>
             </tr>';
@@ -58,22 +58,22 @@ $NEEstatus = list_estatus_notas();
 						echo '<tr class="active">
 							<td class="col-xs-1">'.convertir_fecha($lista['fecha_crea'],1).'</td>
 							<td class="col-xs-1">'.iconosNotas($lista['id']).'</td>
-							<td class="col-xs-8"><i>'.$lista['descripcion'].'</i></td>
+              <td class="col-xs-8">'.utf8_decode($lista['descripcion']).'</td>
 							<td class="col-xs-1"><input type="checkbox" name="nota[]" value="'.$lista['id'].'"></td>
               <td class="col-xs-1"><a href="#modal-edit"  data-toggle="modal"
                                                               data-id="'.$lista['id'].'"
-                                                              data-descripcion="'.$lista['descripcion'].'"
+                                                              data-descripcion="'.utf8_decode($lista['descripcion']).'"
                                                               data-estatus="'.$lista['estado'].'"
                                                               data-importancia="'.$lista['importancia'].'">Editar</a></td>
             </tr>';
 						}else{
 							echo '<tr class="info"><td class="col-xs-1">'.convertir_fecha($lista['fecha_crea'],1).'</td>
 							<td class="col-xs-1">'.iconosNotas($lista['id']).'</td>
-							<td class="col-xs-8"><i>'.$lista['descripcion'].'</i></td>
+              <td class="col-xs-8">'.utf8_decode($lista['descripcion']).'</td>
 							<td class="col-xs-1"><input type="checkbox" name="nota[]" value="'.$lista['id'].'"></td>
               <td class="col-xs-1"><a href="#modal-edit" data-toggle="modal"
                                                               data-id="'.$lista['id'].'"
-                                                              data-descripcion="'.$lista['descripcion'].'"
+                                                              data-descripcion="'.utf8_decode($lista['descripcion']).'"
                                                               data-estatus="'.$lista['estado'].'"
                                                               data-importancia="'.$lista['importancia'].'">Editar</a></td>
 						</tr>';
@@ -202,8 +202,8 @@ $NEEstatus = list_estatus_notas();
               echo '<tr>
               <td class="col-xs-1">'.$lista['id'].'</td>
               <td class="col-xs-1">'.convertir_fecha($lista['fecha'],1).'</td>
-              <td class="col-xs-5">'.$lista['descripcion'].'</td>
-              <td class="col-xs-1">'.$lista['usuario'].'</td>
+              <td class="col-xs-5">'.utf8_decode($lista['descripcion']).'</td>
+              <td class="col-xs-1">'.utf8_decode($lista['usuario']).'</td>
               <td class="col-xs-1">'.$lista['estado'].'</td>
               <td class="col-xs-1">'.$lista['importancia'].'</td>
               <td class="col-xs-2">'.fecha_visible($lista['modificacion'],1).'</td>
